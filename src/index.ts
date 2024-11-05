@@ -1,6 +1,6 @@
 import { calc } from "./test";
 
-console.log("init");
+console.log("init !");
 
 const result = calc(5, 10);
 
