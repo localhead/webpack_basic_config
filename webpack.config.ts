@@ -11,6 +11,9 @@ type WebpackConfig = webpack.Configuration & {
 type EnvironmentRecord = { mode: "production" | "development"; port: number };
 
 export default (env: EnvironmentRecord) => {
+  const isDev = env.mode === "development";
+  const isProd = env.mode === "production";
+
   const config: WebpackConfig = {
     // настройка переменной окружения. В дев режиме бандл будет читабельный, в проде - максимально сжатый
     mode: env.mode ?? "development",
@@ -30,7 +33,7 @@ export default (env: EnvironmentRecord) => {
         template: path.resolve(__dirname, "public", "index.html"),
       }),
       // бестолковый плагин который в терминале показывает % готовности бандла. Сильно тормозит сборку. Использовать только на "development"
-      new webpack.ProgressPlugin(),
+      isDev && new webpack.ProgressPlugin(),
     ],
     // Настройка лоудеров. Нужно чтобы вебпак работал с расширениями помимо JS
     module: {
@@ -51,12 +54,14 @@ export default (env: EnvironmentRecord) => {
         "@utils": path.resolve(__dirname, "src/utils"), // Example for components
       },
     },
-    devtool: "inline-source-map",
-    // настройка сервера. Смотрим в лайв режиме за изменениями
-    devServer: {
-      port: env.port ?? 5000,
-      open: true,
-    },
+    devtool: isDev && "inline-source-map",
+    // настройка сервера. Смотрим в лайв режиме за изменениями. Он нужен только isDev сборке.
+    devServer: isDev
+      ? {
+          port: env.port ?? 5000,
+          open: true,
+        }
+      : undefined,
   };
   return config;
 };
