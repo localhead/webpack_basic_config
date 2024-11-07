@@ -45,7 +45,11 @@ export default (env: EnvironmentRecord) => {
     },
     resolve: {
       // настройка TS
-      extensions: [".tsx", ".ts", ".js"],
+      extensions: [".tsx", ".ts", ".js", ".jsx"],
+      alias: {
+        "@pages": path.resolve(__dirname, "src/pages"), // Adjust this path to match your project structure
+        "@utils": path.resolve(__dirname, "src/utils"), // Example for components
+      },
     },
     devtool: "inline-source-map",
     // настройка сервера. Смотрим в лайв режиме за изменениями
