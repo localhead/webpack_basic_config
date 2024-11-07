@@ -6,6 +6,8 @@
       "@pages/*": ["src/pages/*"],
       "@utils": ["src/utils"],
       "@utils/*": ["src/utils/*"],
+      "@config": ["config/build"],
+      "@config/*": ["config/build/*"],
       "@": ["src"],
       "@/*": ["src/*"]
     },
