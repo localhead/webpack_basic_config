@@ -4,6 +4,7 @@ export type BuildOptions = {
   paths: BuildPaths;
   port: number;
   mode: EnvironmentRecord;
+  analyzer?: boolean;
 };
 
 export type BuildPaths = {

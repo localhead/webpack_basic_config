@@ -7,6 +7,7 @@ import { EnvironmentRecord } from "./config/build/types/types";
 interface EnvVariables {
   mode: EnvironmentRecord;
   port: number;
+  analyzer?: boolean;
 }
 
 export default (env: EnvVariables) => {
@@ -19,9 +20,12 @@ export default (env: EnvVariables) => {
       alias: {
         "@pages": path.resolve(__dirname, "src/pages"),
         "@utils": path.resolve(__dirname, "src/utils"),
+        "@assets": path.resolve(__dirname, "src/assets"),
+        "@packages": path.resolve(__dirname, "src/packages"),
       },
     },
     port: env.port ?? 5000,
+    analyzer: env.analyzer ?? false,
   });
   return config;
 };
