@@ -1,24 +1,31 @@
-import path from "path";
 import webpack from "webpack";
 
 import { buildDevServers } from "./buildDevServers";
 import { buildLoaders } from "./buildLoaders";
 import { buildPlugins } from "./buildPlugins";
 import { buildResolvers } from "./buildResolvers";
-import { Options } from "./types";
+import { BuildOptions } from "./types/types";
 
-export function buildWebpack(options: Options): webpack.Configuration {
-  const isDev = options.env.mode === "development";
-  const isProd = options.env.mode === "production";
+import { Configuration as DevServerConfiguration } from "webpack-dev-server";
+
+type WebpackConfig = webpack.Configuration & {
+  devServer?: DevServerConfiguration;
+};
+
+export function buildWebpack(options: BuildOptions): WebpackConfig {
+  const { paths, mode } = options;
+
+  const isDev = mode === "development";
+  const isProd = mode === "production";
 
   return {
     // настройка переменной окружения. В дев режиме бандл будет читабельный, в проде - максимально сжатый
-    mode: options.env.mode ?? "development",
+    mode: mode ?? "development",
     // точка входа, откуда вебпак будет брать исходный код
-    entry: path.resolve(__dirname, "src", "index.tsx"),
+    entry: paths.entry,
     // точка выхода куда вебпак будет все выгружать финальную сборку
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: paths.output,
       // название файла будет каждый раз новое, чтобы браузер обновлял кэш. contenthash - шаблон.
       filename: "[name].[contenthash].js",
       // флаг который просто стирает старые файлы каждый билд

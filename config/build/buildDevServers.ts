@@ -1,8 +1,8 @@
-import { Options } from "./types";
+import { BuildOptions } from "./types/types";
 
-export function buildDevServers(options: Options) {
+export function buildDevServers(options: BuildOptions) {
   return {
-    port: options.env.port ?? 5000,
+    port: options.port ?? 5000,
     open: true,
   };
 }

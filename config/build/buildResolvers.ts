@@ -1,15 +1,13 @@
-import path from "path";
 import { Configuration } from "webpack";
-import { Options } from "./types";
+import { BuildOptions } from "./types/types";
 
-export function buildResolvers(options: Options): Configuration["resolve"] {
+export function buildResolvers(
+  options: BuildOptions
+): Configuration["resolve"] {
+  const { paths } = options;
   return {
     // настройка TS
     extensions: [".tsx", ".ts", ".js", ".jsx"],
-    alias: {
-      "@pages": path.resolve(__dirname, "src/pages"),
-      "@utils": path.resolve(__dirname, "src/utils"),
-      "@config": path.resolve(__dirname, "config/build"),
-    },
+    alias: paths.alias,
   };
 }
