@@ -1,5 +1,3 @@
 import styled from "styled-components";
 
-export const StyledMainPage = styled.div`
-  background: red;
-`;
+export const StyledMainPage = styled.div``;

@@ -20,3 +20,7 @@ declare module "*.svg" {
   const content: FC<SVGProps<SVGSVGElement>>;
   export default content;
 }
+
+declare const __PLATFORM__: "desktop" | "mobile";
+declare const __MODE__: "development" | "production";
+declare const __ANALYZER__: boolean;

@@ -1,7 +1,8 @@
 import React from "react";
 
 import { MainPage } from "@pages/MainPage";
-import { GlobalStyle } from "@pages/utils/globalStyle";
+
+import { GlobalStyle } from "@utils/globalStyle";
 import { Outlet } from "react-router-dom";
 
 export const App: React.FC = () => {

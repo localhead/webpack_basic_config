@@ -2,13 +2,9 @@ import path from "path";
 import webpack from "webpack";
 
 import { buildWebpack } from "./config/build/buildWebpack";
-import { EnvironmentRecord } from "./config/build/types/types";
+import { BuildOptions } from "./config/build/types/types";
 
-interface EnvVariables {
-  mode: EnvironmentRecord;
-  port: number;
-  analyzer?: boolean;
-}
+interface EnvVariables extends Omit<BuildOptions, "paths"> {}
 
 export default (env: EnvVariables) => {
   const config: webpack.Configuration = buildWebpack({
@@ -24,8 +20,9 @@ export default (env: EnvVariables) => {
         "@packages": path.resolve(__dirname, "src/packages"),
       },
     },
-    port: env.port ?? 5000,
+    port: env.port ?? 3000,
     analyzer: env.analyzer ?? false,
+    platform: env.platform ?? "desktop",
   });
   return config;
 };

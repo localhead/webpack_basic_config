@@ -1,10 +1,12 @@
-export type EnvironmentRecord = "production" | "development";
+export type EnvironmentOptions = "production" | "development";
+export type PlatformOptions = "desktop" | "mobile";
 
 export type BuildOptions = {
   paths: BuildPaths;
   port: number;
-  mode: EnvironmentRecord;
+  mode: EnvironmentOptions;
   analyzer?: boolean;
+  platform?: PlatformOptions;
 };
 
 export type BuildPaths = {

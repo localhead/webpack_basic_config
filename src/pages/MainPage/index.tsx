@@ -13,8 +13,9 @@ const _MainPage: FC<MainPageProps> = (props) => {
 
   return (
     <StyledMainPage {...restProps}>
-      <img src={placeholder} />
-      <AlarmIcon size={50} color="white" />
+      <img src={placeholder} width={75} height={50} />
+      <AlarmIcon size={50} color="black" />
+      <h3>{__PLATFORM__}</h3>
     </StyledMainPage>
   );
 };
