@@ -5,6 +5,7 @@ export type BuildOptions = {
   paths: BuildPaths;
   port: number;
   mode: EnvironmentOptions;
+
   analyzer?: boolean;
   platform?: PlatformOptions;
 };
@@ -12,6 +13,7 @@ export type BuildOptions = {
 export type BuildPaths = {
   entry: string;
   html: string;
+  public: string;
   output: string;
   alias: any;
 };

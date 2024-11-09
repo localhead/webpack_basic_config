@@ -1,4 +1,6 @@
+import CopyPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
 import webpack, { Configuration } from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { BuildOptions } from "./types/types";
@@ -14,6 +16,7 @@ export function buildPlugins(options: BuildOptions): Configuration["plugins"] {
     // плагин который отвечает за обработку html. Он подставляет скрипты в финальную HTML
     new HtmlWebpackPlugin({
       template: paths.html,
+      favicon: path.resolve(paths.public, "", "favicon.png"),
     }),
     // Плагин который дает возможность пользоваться переменными окружения в проекте.
     new webpack.DefinePlugin({
@@ -28,12 +31,21 @@ export function buildPlugins(options: BuildOptions): Configuration["plugins"] {
     plugins.push(new webpack.ProgressPlugin(), new ReactRefreshWebpackPlugin());
   }
 
-  if (isProd && analyzer) {
-    plugins.push(new BundleAnalyzerPlugin());
-  }
-
   if (isProd) {
     // плагины для прод режима
+    if (analyzer) {
+      plugins.push(new BundleAnalyzerPlugin());
+    }
+    plugins.push(
+      new CopyPlugin({
+        patterns: [
+          {
+            from: path.resolve(paths.public, "favicon.png"),
+            to: path.resolve(paths.output, "public"),
+          },
+        ],
+      })
+    );
   }
 
   return plugins;
